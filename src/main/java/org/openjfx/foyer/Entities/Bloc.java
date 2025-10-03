@@ -1,15 +1,25 @@
 package org.openjfx.foyer.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-public class Bloc {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Bloc implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idBloc;
     private String nombloc;
     private long capaiteBloc;
+    @OneToMany(mappedBy = "bloc", cascade = CascadeType.ALL)
+    private Set<Chambre> chambres;
+    @ManyToOne
+    private Foyer foyer;
 }

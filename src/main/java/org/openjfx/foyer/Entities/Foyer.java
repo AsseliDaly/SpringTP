@@ -1,14 +1,25 @@
 package org.openjfx.foyer.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Foyer {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Foyer implements Serializable {
     @Id
     @GeneratedValue
     private int idFoyer;
     private String nomFoyer;
     private long capaciteFoyer;
+    @OneToMany(mappedBy = "foyer")
+    private List<Bloc> Blocs;
+    @OneToOne(mappedBy = "foyer")
+    private Universite universite;
 }
